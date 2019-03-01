@@ -1,0 +1,13 @@
+D:\Projekte\Youtube\UI\bin\Debug\UI.exe.config
+D:\Projekte\Youtube\UI\bin\Debug\UI.exe
+D:\Projekte\Youtube\UI\bin\Debug\UI.pdb
+D:\Projekte\Youtube\UI\bin\Debug\ReazerJSON.dll
+D:\Projekte\Youtube\UI\bin\Debug\ReazerJSON.pdb
+D:\Projekte\Youtube\UI\obj\Debug\UI.csprojAssemblyReference.cache
+D:\Projekte\Youtube\UI\obj\Debug\UI.Form1.resources
+D:\Projekte\Youtube\UI\obj\Debug\UI.Properties.Resources.resources
+D:\Projekte\Youtube\UI\obj\Debug\UI.csproj.GenerateResource.cache
+D:\Projekte\Youtube\UI\obj\Debug\UI.csproj.CoreCompileInputs.cache
+D:\Projekte\Youtube\UI\obj\Debug\UI.csproj.CopyComplete
+D:\Projekte\Youtube\UI\obj\Debug\UI.exe
+D:\Projekte\Youtube\UI\obj\Debug\UI.pdb
