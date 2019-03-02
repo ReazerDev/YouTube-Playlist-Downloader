@@ -1,0 +1,9 @@
+obj\Debug\Product.wixobj
+obj\Debug\Installer.wixproj.BindContentsFileListen-us.txt
+obj\Debug\Installer.wixproj.BindOutputsFileListen-us.txt
+obj\Debug\Installer.wixproj.BindBuiltOutputsFileListen-us.txt
+obj\Debug\Components.wixobj
+obj\Debug\Directories.wixobj
+D:\Projekte\Youtube\Installer\bin\Debug\en-us\YouTube Playlist Downloader Setup - x64.msi
+D:\Projekte\Youtube\Installer\bin\Debug\en-us\YouTube Playlist Downloader Setup - x64.wixpdb
+obj\Debug\ComponentsGenerated.wixobj

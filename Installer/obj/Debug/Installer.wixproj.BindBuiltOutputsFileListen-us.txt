@@ -1,0 +1,2 @@
+D:\Projekte\Youtube\Installer\bin\Debug\en-us\YouTube Playlist Downloader Setup - x64.msi
+D:\Projekte\Youtube\Installer\bin\Debug\en-us\YouTube Playlist Downloader Setup - x64.wixpdb

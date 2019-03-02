@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents">
+
+      <ComponentRef Id="UIFile"/>
+      <ComponentRef Id="UIFileConfig"/>
+      <ComponentRef Id="UIFilePDB"/>
+      <ComponentRef Id="MainAppShortcut"/>
+      <ComponentRef Id="ApplicationShortcutDesktop"/>
+      
+    </ComponentGroup>
+
+    <DirectoryRef Id="INSTALLFOLDER" FileSource="..\UI\bin\Release\">
+
+      
+      
+      <Component Id="UIFile" Guid="{7393733B-42F9-49BE-8C94-CA88A8D9590D}">
+        <File Id="FileUIFile" Name="UI.exe" KeyPath="yes" />
+      </Component>
+      <Component Id="UIFileConfig" Guid="{4E33558A-1CDE-4876-899F-155367FB3B0F}">
+        <File Id="FileUIFileConfig" Name="UI.exe.config" KeyPath="yes" />
+      </Component>
+      <Component Id="UIFilePDB" Guid="{582244F2-5FF6-4B22-89B3-D025DCDA6DC8}">
+        <File Id="FileUIFilePDB" Name="UI.pdb" KeyPath="yes" />
+      </Component>
+    
+
+      <Component Id="MainAppShortcut" Guid="{41270571-A608-4DD3-8BCD-D137E54CE423}">        <Shortcut Id="MainAppShortcut" 
+                  Name="!(loc.ProductNameFolder)" 
+                  Target="[INSTALLFOLDER]UI.exe" 
+                  Directory="InstallProgramMenuFolder" 
+                  WorkingDirectory="INSTALLFOLDER" 
+                  Icon="icon.ico" 
+                  />
+        <RegistryValue Id="RegProgramShortcutKey" Root="HKCU" Key="SOFTWARE\!(loc.ProductNameFolder)" Name="ProgramShortcut" Value="1" Type="integer" KeyPath="yes"/>
+        <RemoveFolder Id="RemoveStartMenuFile" Directory="InstallProgramMenuFolder" On="uninstall" />
+      </Component>
+
+      <Component Id="ApplicationShortcutDesktop" Guid="{5BB52037-162F-4482-8793-4B6420C65FC9}">
+        <Shortcut 
+          Id="ApplicationDesktopShortcut" 
+          Name="!(loc.ProductNameFolder)" 
+          Target="[INSTALLFOLDER]UI.exe" 
+          Directory="DesktopFolder" 
+          WorkingDirectory="INSTALLFOLDER" 
+          Icon="icon.ico" 
+          />
+        <RegistryValue Id="RegDesktopShortcutKey" Root="HKCU" Key="SOFTWARE\!(loc.ProductNameFolder)" Name="DesktopShortcut" Value="1" Type="integer" KeyPath="yes"/>
+        <RemoveFolder Id="DesktopFolder" On="uninstall" />
+      </Component>
+
+    </DirectoryRef>
+  </Fragment>
+ 
+  
+</Wix>

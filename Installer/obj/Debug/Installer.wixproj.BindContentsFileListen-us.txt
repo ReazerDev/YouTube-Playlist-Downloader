@@ -1,0 +1,17 @@
+..\YouTube\bin\Debug\converter.exe
+..\YouTube\bin\Debug\converter.application
+..\YouTube\bin\Debug\Newtonsoft.Json.xml
+..\YouTube\bin\Debug\converter.exe.manifest
+..\YouTube\bin\Debug\converter.exe.config
+..\YouTube\bin\Debug\app.publish\converter.exe
+..\YouTube\bin\Debug\Newtonsoft.Json.dll
+..\YouTube\bin\Debug\libvideo.dll
+..\YouTube\bin\Debug\MediaToolkit.dll
+..\YouTube\bin\Debug\Newtonsoft.Json.pdb
+..\YouTube\bin\Debug\libvideo.pdb
+..\YouTube\bin\Debug\ReazerJSON.pdb
+..\YouTube\bin\Debug\converter.pdb
+..\YouTube\bin\Debug\ReazerJSON.dll
+..\UI\bin\Release\UI.exe
+..\UI\bin\Release\UI.exe.config
+..\UI\bin\Release\UI.pdb

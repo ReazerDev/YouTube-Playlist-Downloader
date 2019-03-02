@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="converter.exe" size="12720">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="converter.exe" size="13232">
       <assemblyIdentity name="converter" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>iqSYU7RXbKdfjXWrL64nwsolSoMBa0ctcIMBF+93+GM=</dsig:DigestValue>
+        <dsig:DigestValue>BnQUw10DRYxgx/LtX1+dSkZiVPsTg+x/uABM9YNr41E=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -97,26 +97,17 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ZBaYZm6M3cHNhiKWNYXxCEBbonFpFBSraxTN2dZZGy8=</dsig:DigestValue>
+        <dsig:DigestValue>U5kx0OxL4KXrPBrmWRZPQBf/kCzIxDV+DkEebsQBUI8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="converter.exe.config" size="1095">
+  <file name="converter.exe.config" size="1157">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>cKXjxK3gmZtSj56+savDTQcVqTpt3UN/kE0F03wGaKg=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Profilbild.ico" size="208342">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>bxrCYacm9LqNlpLh8GvjkAsvpulqZnjkGMa/yvVYQnY=</dsig:DigestValue>
+      <dsig:DigestValue>kDb7fJayslm/Ql/Sr0DApiwRV+lo53I6zmFUxOoPXGQ=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

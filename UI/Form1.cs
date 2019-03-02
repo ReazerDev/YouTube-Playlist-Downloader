@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Principal;
 using System.Windows.Forms;
 using ReazerJSON;
 
@@ -15,10 +9,18 @@ namespace UI
 {
     public partial class Form1 : Form
     {
+        public static bool IsAdministrator()
+        {
+            return (new WindowsPrincipal(WindowsIdentity.GetCurrent()))
+                      .IsInRole(WindowsBuiltInRole.Administrator);
+        }
         public Form1()
         {
             InitializeComponent();
+            
         }
+
+        
 
         private void startBtn_Click(object sender, EventArgs e)
         {
@@ -49,6 +51,15 @@ namespace UI
             if(result == DialogResult.OK)
             {
                 pathTextbox.Text = folderBrowserDialog1.SelectedPath;
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            if (!IsAdministrator())
+            {
+                if (MessageBox.Show("You need to run this Porgram as an Administrator! (Right click on File and choose \"Run as Administrator\"", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
+                    Application.Exit();
             }
         }
     }

@@ -49,7 +49,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>rFMH/p671AZQuWB9+23B4QJLolAUC/E5hnRmWCJWp6s=</dsig:DigestValue>
+        <dsig:DigestValue>IORkQUXo5W599P3EgT1i4nK3CzbQoXVImq1wbl18jIc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -101,22 +101,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="converter.exe.config" size="1095">
+  <file name="converter.exe.config" size="1157">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>cKXjxK3gmZtSj56+savDTQcVqTpt3UN/kE0F03wGaKg=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Profilbild.ico" size="208342">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>bxrCYacm9LqNlpLh8GvjkAsvpulqZnjkGMa/yvVYQnY=</dsig:DigestValue>
+      <dsig:DigestValue>kDb7fJayslm/Ql/Sr0DApiwRV+lo53I6zmFUxOoPXGQ=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

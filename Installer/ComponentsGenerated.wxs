@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="INSTALLFOLDER">
+            <Component Id="cmp7AD5241C54DDCA1D01E81DBF5CB04C6A" Guid="{C1A63BA9-CE5B-44DC-8665-C27893CF2E14}">
+                <File Id="fil042D55E9BF236044AA1DC7E793F542D8" KeyPath="yes" Source="$(var.BasePath)\converter.exe" />
+            </Component>
+            <Component Id="cmpB8FDEAA2BACE596560DBCFDEA1D5AE15" Guid="{A5959552-6C70-49FB-8B7F-8BC66592C393}">
+                <File Id="fil768C9895AFF7BBA1117A4445B77C177F" KeyPath="yes" Source="$(var.BasePath)\converter.exe.config" />
+            </Component>
+            <Component Id="cmp75409281AC767BCA164A5A27AF82AC9F" Guid="{160DDD1A-BE73-4BB6-BFCA-F531B62F49DA}">
+                <File Id="fil5A74F63CBDBFD4DD26397E1681493E09" KeyPath="yes" Source="$(var.BasePath)\converter.exe.manifest" />
+            </Component>
+            <Component Id="cmpFAB137D34181BA67441D6ED731B925F1" Guid="{1EDF647E-42F9-4FB8-B875-5A302B569133}">
+                <File Id="filE1EEB7B7076C7443F5F837CCACD5E7D5" KeyPath="yes" Source="$(var.BasePath)\converter.pdb" />
+            </Component>
+            <Component Id="cmpD942A4203A5845C382289A463FC9661F" Guid="{D2092477-616E-4C1E-882C-3526F473FA87}">
+                <File Id="filB9AE588BC4981C3FA8C98707A5FDEB73" KeyPath="yes" Source="$(var.BasePath)\libvideo.dll" />
+            </Component>
+            <Component Id="cmpF7288872B10C68171E880257DA8F9251" Guid="{1C58B213-FF67-416B-A4D2-F39400B142FD}">
+                <File Id="filD1AF96F83D04276C5A04626F236F61BA" KeyPath="yes" Source="$(var.BasePath)\libvideo.pdb" />
+            </Component>
+            <Component Id="cmp2C21C0DB6F9149FDBF1FEF0FCB7688F4" Guid="{A7538B26-6F11-4A4E-B286-F1CAE498E145}">
+                <File Id="filC4341B7141238809B50D55BC9AA39238" KeyPath="yes" Source="$(var.BasePath)\MediaToolkit.dll" />
+            </Component>
+            <Component Id="cmpBC4FC00A26E7D32479D42D3411317FC5" Guid="{16977962-180B-4455-8B95-66C137FAD01A}">
+                <File Id="fil90A8AAD9FC612906D405476D61CEA3F4" KeyPath="yes" Source="$(var.BasePath)\Newtonsoft.Json.dll" />
+            </Component>
+            <Component Id="cmp22E746D6F416E29CB766C7D18764B4B9" Guid="{15ACE582-1697-452B-9D4C-BC0E0BD312A3}">
+                <File Id="filCDAFB89F0B81C3E6CC5A00DBBB38E11F" KeyPath="yes" Source="$(var.BasePath)\Newtonsoft.Json.pdb" />
+            </Component>
+            <Component Id="cmp125C379E185231EFADA4CB4301BD0A9E" Guid="{083549A2-18DD-44E3-ACF1-52F0D27AF081}">
+                <File Id="fil3A2F44A7730E98D18E0948B3261DFABD" KeyPath="yes" Source="$(var.BasePath)\Newtonsoft.Json.xml" />
+            </Component>
+            <Component Id="cmp0EF76BA9AC13C4D55E7D164F4C578CCF" Guid="{B82F622A-DE9B-4911-97B9-9D6C7966B554}">
+                <File Id="filE32199C16E65263753562257B031C441" KeyPath="yes" Source="$(var.BasePath)\ReazerJSON.dll" />
+            </Component>
+            <Component Id="cmp20E05A4F596154D04C67861120ADD575" Guid="{D884A92A-CF40-4717-8267-8C45B176E8BE}">
+                <File Id="filD5643C97B1765E46B56CB524609691CE" KeyPath="yes" Source="$(var.BasePath)\ReazerJSON.pdb" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="PublishedComponents">
+            <ComponentRef Id="cmp7AD5241C54DDCA1D01E81DBF5CB04C6A" />
+            <ComponentRef Id="cmpB8FDEAA2BACE596560DBCFDEA1D5AE15" />
+            <ComponentRef Id="cmp75409281AC767BCA164A5A27AF82AC9F" />
+            <ComponentRef Id="cmpFAB137D34181BA67441D6ED731B925F1" />
+            <ComponentRef Id="cmpD942A4203A5845C382289A463FC9661F" />
+            <ComponentRef Id="cmpF7288872B10C68171E880257DA8F9251" />
+            <ComponentRef Id="cmp2C21C0DB6F9149FDBF1FEF0FCB7688F4" />
+            <ComponentRef Id="cmpBC4FC00A26E7D32479D42D3411317FC5" />
+            <ComponentRef Id="cmp22E746D6F416E29CB766C7D18764B4B9" />
+            <ComponentRef Id="cmp125C379E185231EFADA4CB4301BD0A9E" />
+            <ComponentRef Id="cmp0EF76BA9AC13C4D55E7D164F4C578CCF" />
+            <ComponentRef Id="cmp20E05A4F596154D04C67861120ADD575" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>
