@@ -43,6 +43,18 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Id3Lib.dll" size="50176">
+      <assemblyIdentity name="Id3Lib" version="0.6.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>QXnCygD5xXnnzDvfCqpb11mSDBVgMr7LY0FPh2iBwos=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="libvideo.dll" size="39424">
       <assemblyIdentity name="libvideo" version="2.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -63,6 +75,18 @@
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
         <dsig:DigestValue>uWZN5kx34dKVl4akM03WEeLa1yTbmn0shh9iLzyOkMU=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Mp3Lib.dll" size="31744">
+      <assemblyIdentity name="Mp3Lib" version="0.6.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>Q1vvgOJe+nGokwtrBN3lDS2DoSWEO3KzYq2I0vvOZXo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -91,14 +115,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UI.exe" size="47024">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UI.exe" size="50096">
       <assemblyIdentity name="UI" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>oj3DG1pHC9whTXx0U+X2zuB2yrtz3Y/J42KbdsB3z44=</dsig:DigestValue>
+        <dsig:DigestValue>5taP0BUouFT3dXvFepSpP1Lu0989AEpnpmC7ZWeFLxs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

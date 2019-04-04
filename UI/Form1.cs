@@ -1,44 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
-using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MediaToolkit;
 using MediaToolkit.Model;
 using Newtonsoft.Json;
-using ReazerJSON;
 using VideoLibrary;
+using Mp3Lib;
+using System.Drawing;
 
 namespace UI
 {
     public partial class Form1 : Form
     {
-
-        private delegate void EventHandle();
-
-        public static bool IsAdministrator()
-        {
-            return (new WindowsPrincipal(WindowsIdentity.GetCurrent()))
-                      .IsInRole(WindowsBuiltInRole.Administrator);
-        }
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            if (!IsAdministrator())
-            {
-                //if (MessageBox.Show("You need to run this Porgram as an Administrator! (Right click on File and choose \"Run as Administrator\"", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK)
-                    //Application.Exit();
-            }
         }
 
         string playListId;
@@ -48,10 +30,11 @@ namespace UI
             playListId = linkTextbox.Text.Replace("https://www.youtube.com/playlist?list=", "");
             try
             {
+                progressBar.Value = 0;
                 startBtn.Text = "Stop";
                 var task = GetVideosInPlaylistAsync(playListId);
                 var result = await task.ConfigureAwait(false);
-                CreateFiles(result, convertCheckbox.Checked, pathTextbox.Text);
+                CreateFiles(result, convertCheckbox.Checked, pathTextbox.Text, artistTextbox.Text, albumTextbox.Text, yearTextbox.Text, albumPicture.Image);
             }
             catch (AggregateException agg)
             {
@@ -70,10 +53,10 @@ namespace UI
 
         private void browseBtn_Click(object sender, EventArgs e)
         {
-            DialogResult result = folderBrowserDialog1.ShowDialog();
+            DialogResult result = downloadPathDialog.ShowDialog();
             if(result == DialogResult.OK)
             {
-                pathTextbox.Text = folderBrowserDialog1.SelectedPath;
+                pathTextbox.Text = downloadPathDialog.SelectedPath;
             }
         }
 
@@ -100,7 +83,7 @@ namespace UI
             }
         }
 
-        private void CreateFiles(dynamic result, bool convert, string source)
+        private void CreateFiles(dynamic result, bool convert, string source, string artist, string album, string year, Image picture)
         {
             if (result.items.Count > 0)
             {
@@ -122,6 +105,7 @@ namespace UI
 
                         var inputFile = new MediaFile { Filename = path };
                         var outputFile = new MediaFile { Filename = $"{path.Replace(".mp4", "")}.mp3" };
+                        string pathToMP3;
                         if (convert)
                         {
 
@@ -132,7 +116,19 @@ namespace UI
                                 engine.Convert(inputFile, outputFile);
                             }
                             File.Delete(path);
+                            pathToMP3 = outputFile.Filename;
+                            pathToMP3 = pathToMP3.Replace("_", "");
+                            pathToMP3 = pathToMP3.Replace(" - YouTube", "");
+                            pathToMP3 = pathToMP3.Replace("\\", "/");
+                            File.Move(outputFile.Filename, pathToMP3);
+                            Mp3File file = new Mp3File(pathToMP3);
+                            file.TagHandler.Artist = artist;
+                            file.TagHandler.Album = album;
+                            file.TagHandler.Year = year;
+                            file.TagHandler.Picture = picture;
                         }
+                        
+
                         done += 1;
                         SetControlPropertyValue(progressBar, "value", done);
                         SetControlPropertyValue(progressLabel, "text", progressBar.Value.ToString() + "/" + progressBar.Maximum.ToString() + " Done"); 
@@ -183,6 +179,15 @@ namespace UI
         private static string makeUrlWithQuery(string baseUrl, IEnumerable<KeyValuePair<string, string>> parameters)
         {
             return parameters.Aggregate(baseUrl, (accumalated, kvp) => string.Format($"{accumalated}{kvp.Key}={kvp.Value}&"));
+        }
+
+        private void browseImageBtn_Click(object sender, EventArgs e)
+        {
+            DialogResult result = imageDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                albumPicture.Image = Image.FromFile(imageDialog.FileName);
+            }
         }
     }
 }
