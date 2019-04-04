@@ -34,7 +34,7 @@
       EmbedCab="yes"
       />
 
-    <Icon Id="icon.ico" SourceFile="$(var.UI.ProjectDir)\icon.ico"/>
+    <Icon Id="icon.ico" SourceFile="$(var.UI.ProjectDir)\logo.ico"/>
 
     <Property Id="ARPPRODUCTICON">icon.ico</Property>
     <Property Id="ARPURLINFOABOUT">http://www.reazer.bplaced.net</Property>

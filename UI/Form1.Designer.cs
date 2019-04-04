@@ -36,6 +36,8 @@
             this.convertCheckbox = new System.Windows.Forms.CheckBox();
             this.browseBtn = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.progressLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // startBtn
@@ -100,11 +102,29 @@
             this.browseBtn.UseVisualStyleBackColor = true;
             this.browseBtn.Click += new System.EventHandler(this.browseBtn_Click);
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(24, 194);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(580, 42);
+            this.progressBar.TabIndex = 7;
+            // 
+            // progressLabel
+            // 
+            this.progressLabel.AutoSize = true;
+            this.progressLabel.Location = new System.Drawing.Point(21, 174);
+            this.progressLabel.Name = "progressLabel";
+            this.progressLabel.Size = new System.Drawing.Size(66, 17);
+            this.progressLabel.TabIndex = 8;
+            this.progressLabel.Text = "0/0 Done";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(634, 171);
+            this.ClientSize = new System.Drawing.Size(634, 248);
+            this.Controls.Add(this.progressLabel);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.browseBtn);
             this.Controls.Add(this.convertCheckbox);
             this.Controls.Add(this.label2);
@@ -130,6 +150,8 @@
         private System.Windows.Forms.CheckBox convertCheckbox;
         private System.Windows.Forms.Button browseBtn;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Label progressLabel;
     }
 }
 

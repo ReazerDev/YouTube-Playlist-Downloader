@@ -3,12 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Youtube", "Youtube\Youtube.csproj", "{39F2081E-FF15-4A10-BCA1-EF5BFD2A552F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{7136BE95-0F55-48B3-B6ED-7310006B983E}"
-	ProjectSection(ProjectDependencies) = postProject
-		{39F2081E-FF15-4A10-BCA1-EF5BFD2A552F} = {39F2081E-FF15-4A10-BCA1-EF5BFD2A552F}
-	EndProjectSection
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Installer", "Installer\Installer.wixproj", "{64885714-3E5D-4E81-BC40-8DC892441FC0}"
 EndProject
@@ -20,14 +15,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{39F2081E-FF15-4A10-BCA1-EF5BFD2A552F}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{39F2081E-FF15-4A10-BCA1-EF5BFD2A552F}.Debug|x64.Build.0 = Debug|Any CPU
-		{39F2081E-FF15-4A10-BCA1-EF5BFD2A552F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{39F2081E-FF15-4A10-BCA1-EF5BFD2A552F}.Debug|x86.Build.0 = Debug|Any CPU
-		{39F2081E-FF15-4A10-BCA1-EF5BFD2A552F}.Release|x64.ActiveCfg = Release|Any CPU
-		{39F2081E-FF15-4A10-BCA1-EF5BFD2A552F}.Release|x64.Build.0 = Release|Any CPU
-		{39F2081E-FF15-4A10-BCA1-EF5BFD2A552F}.Release|x86.ActiveCfg = Release|Any CPU
-		{39F2081E-FF15-4A10-BCA1-EF5BFD2A552F}.Release|x86.Build.0 = Release|Any CPU
 		{7136BE95-0F55-48B3-B6ED-7310006B983E}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{7136BE95-0F55-48B3-B6ED-7310006B983E}.Debug|x64.Build.0 = Debug|Any CPU
 		{7136BE95-0F55-48B3-B6ED-7310006B983E}.Debug|x86.ActiveCfg = Debug|Any CPU

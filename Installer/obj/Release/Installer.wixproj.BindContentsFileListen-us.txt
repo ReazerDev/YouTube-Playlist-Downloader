@@ -1,7 +1,9 @@
 ..\YouTube\bin\Release\converter.exe
+..\YouTube\bin\Release\converter.application
 ..\YouTube\bin\Release\Newtonsoft.Json.xml
 ..\YouTube\bin\Release\converter.exe.manifest
 ..\YouTube\bin\Release\converter.exe.config
+..\YouTube\bin\Release\app.publish\converter.exe
 ..\YouTube\bin\Release\Newtonsoft.Json.dll
 ..\YouTube\bin\Release\libvideo.dll
 ..\YouTube\bin\Release\MediaToolkit.dll
