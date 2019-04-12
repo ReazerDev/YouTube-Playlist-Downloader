@@ -122,7 +122,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>5taP0BUouFT3dXvFepSpP1Lu0989AEpnpmC7ZWeFLxs=</dsig:DigestValue>
+        <dsig:DigestValue>nOq4cbQTHLgHUbpogUE4r5yKDVhnPcfrjv+uCXE1fzE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -135,13 +135,13 @@
       <dsig:DigestValue>0oj9Gy+Eh7eHJq/pAw/y0jUbKQudO1EVbBrnUNv03S8=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="UI.exe.config" size="295">
+  <file name="UI.exe.config" size="297">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>OCSO+0i57ZDxKW0cwP7JIns41e/kk63w+CO93xEACtM=</dsig:DigestValue>
+      <dsig:DigestValue>EZjdxtqqMnBjY5rGJWJG4Z58fvv6d/bJtRLGre+z4F8=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

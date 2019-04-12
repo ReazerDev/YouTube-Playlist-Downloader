@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using VideoLibrary;
 using Mp3Lib;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace UI
 {
@@ -105,7 +106,6 @@ namespace UI
 
                         var inputFile = new MediaFile { Filename = path };
                         var outputFile = new MediaFile { Filename = $"{path.Replace(".mp4", "")}.mp3" };
-                        string pathToMP3;
                         if (convert)
                         {
 
@@ -115,17 +115,19 @@ namespace UI
 
                                 engine.Convert(inputFile, outputFile);
                             }
+                            string pathToFile = outputFile.Filename;
+                            pathToFile = pathToFile.Replace("_", "");
+                            pathToFile = pathToFile.Replace(" - YouTube", "");
+                            pathToFile = pathToFile.Replace("\\", "/");
+                            File.Move(outputFile.Filename, pathToFile);
                             File.Delete(path);
-                            pathToMP3 = outputFile.Filename;
-                            pathToMP3 = pathToMP3.Replace("_", "");
-                            pathToMP3 = pathToMP3.Replace(" - YouTube", "");
-                            pathToMP3 = pathToMP3.Replace("\\", "/");
-                            File.Move(outputFile.Filename, pathToMP3);
-                            Mp3File file = new Mp3File(pathToMP3);
-                            file.TagHandler.Artist = artist;
-                            file.TagHandler.Album = album;
-                            file.TagHandler.Year = year;
+                            Mp3File file = new Mp3File(pathToFile);
+                            file.TagHandler.Album = "test";
+                            file.TagHandler.Artist = "test";
+                            file.TagHandler.Year = "2019";
                             file.TagHandler.Picture = picture;
+                            file.Update();
+                            
                         }
                         
 
