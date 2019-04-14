@@ -8,7 +8,7 @@
 
   <?define UpgradeCode = "{A5956B30-AD72-4EA3-971D-0284A83A3881}" ?>
 
-  <?define BuildVersion = 1.2.3.4 ?>
+  <?define BuildVersion = 1.3.0.0 ?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Product Id="$(var.ProductCode)" 
@@ -34,7 +34,7 @@
       EmbedCab="yes"
       />
 
-    <Icon Id="icon.ico" SourceFile="$(var.UI.ProjectDir)\icon.ico"/>
+    <Icon Id="icon.ico" SourceFile="$(var.YouTubePlaylistDownloader.ProjectDir)\logo.ico"/>
 
     <Property Id="ARPPRODUCTICON">icon.ico</Property>
     <Property Id="ARPURLINFOABOUT">http://www.reazer.bplaced.net</Property>
@@ -47,7 +47,6 @@
     <Feature Id="ProductFeature" Title="Installer" Level="1">
       
 			<ComponentGroupRef Id="ProductComponents" />
-      <ComponentGroupRef Id="PublishedComponents" />
       
 		</Feature>
     
