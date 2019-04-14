@@ -4,26 +4,26 @@
   <Fragment>
     <ComponentGroup Id="ProductComponents">
 
-      <ComponentRef Id="UIFile"/>
-      <ComponentRef Id="UIFileConfig"/>
-      <ComponentRef Id="UIFilePDB"/>
+      <ComponentRef Id="YouTubePlaylistDownloaderFile"/>
+      <ComponentRef Id="YouTubePlaylistDownloaderFileConfig"/>
+      <ComponentRef Id="YouTubePlaylistDownloaderFilePDB"/>
       <ComponentRef Id="MainAppShortcut"/>
       <ComponentRef Id="ApplicationShortcutDesktop"/>
       
     </ComponentGroup>
 
-    <DirectoryRef Id="INSTALLFOLDER" FileSource="..\UI\bin\Release\">
+    <DirectoryRef Id="INSTALLFOLDER" FileSource="..\YouTubePlaylistDownloader\bin\Release\">
 
       
       
-      <Component Id="UIFile" Guid="{7393733B-42F9-49BE-8C94-CA88A8D9590D}">
-        <File Id="FileUIFile" Name="UI.exe" KeyPath="yes" />
+      <Component Id="YouTubePlaylistDownloaderFile" Guid="{7393733B-42F9-49BE-8C94-CA88A8D9590D}">
+        <File Id="FileYouTubePlaylistDownloaderFile" Name="YouTubePlaylistDownloader.exe" KeyPath="yes" />
       </Component>
-      <Component Id="UIFileConfig" Guid="{4E33558A-1CDE-4876-899F-155367FB3B0F}">
-        <File Id="FileUIFileConfig" Name="UI.exe.config" KeyPath="yes" />
+      <Component Id="YouTubePlaylistDownloaderFileConfig" Guid="{4E33558A-1CDE-4876-899F-155367FB3B0F}">
+        <File Id="FileYouTubePlaylistDownloaderFileConfig" Name="YouTubePlaylistDownloader.exe.config" KeyPath="yes" />
       </Component>
-      <Component Id="UIFilePDB" Guid="{582244F2-5FF6-4B22-89B3-D025DCDA6DC8}">
-        <File Id="FileUIFilePDB" Name="UI.pdb" KeyPath="yes" />
+      <Component Id="YouTubePlaylistDownloaderFilePDB" Guid="{582244F2-5FF6-4B22-89B3-D025DCDA6DC8}">
+        <File Id="FileYouTubePlaylistDownloaderFilePDB" Name="YouTubePlaylistDownloader.pdb" KeyPath="yes" />
       </Component>
     
 
@@ -42,7 +42,7 @@
         <Shortcut 
           Id="ApplicationDesktopShortcut" 
           Name="!(loc.ProductNameFolder)" 
-          Target="[INSTALLFOLDER]UI.exe" 
+          Target="[INSTALLFOLDER]YouTubePlaylistDownloader.exe" 
           Directory="DesktopFolder" 
           WorkingDirectory="INSTALLFOLDER" 
           Icon="icon.ico" 
