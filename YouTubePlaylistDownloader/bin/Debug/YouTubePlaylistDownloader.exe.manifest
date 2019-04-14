@@ -115,14 +115,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="YouTubePlaylistDownloader.exe" size="52144">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="YouTubePlaylistDownloader.exe" size="52656">
       <assemblyIdentity name="YouTubePlaylistDownloader" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>8/5BSBenDz6NP4O91uz8PTaDRGSP++5Ql5PPA38Jsbc=</dsig:DigestValue>
+        <dsig:DigestValue>ASG8NETCUSYX+faKpkk4EN0+ACowfbrjao2GDTjufPU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -135,13 +135,13 @@
       <dsig:DigestValue>0oj9Gy+Eh7eHJq/pAw/y0jUbKQudO1EVbBrnUNv03S8=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="YouTubePlaylistDownloader.exe.config" size="297">
+  <file name="YouTubePlaylistDownloader.exe.config" size="1130">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>EZjdxtqqMnBjY5rGJWJG4Z58fvv6d/bJtRLGre+z4F8=</dsig:DigestValue>
+      <dsig:DigestValue>MvIjPw64qLsH+T7/BUyIOJ3jZ309Pw/a8gX74XvlcVA=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

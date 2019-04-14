@@ -7,14 +7,14 @@
     <framework targetVersion="4.6.1" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="YouTubePlaylistDownloader.exe.manifest" size="9066">
+    <dependentAssembly dependencyType="install" codebase="YouTubePlaylistDownloader.exe.manifest" size="9067">
       <assemblyIdentity name="YouTubePlaylistDownloader.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>DU09+uZy4PXyiBstmN4Q1N6mN6RcJFmztFnCkIM/+7Y=</dsig:DigestValue>
+        <dsig:DigestValue>Ga8pe11sG4jstwVlZ3S/G8QL1XgLetXMrE5vKvImWyI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
