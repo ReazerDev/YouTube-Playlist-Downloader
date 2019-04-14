@@ -13,7 +13,6 @@ using Newtonsoft.Json;
 using VideoLibrary;
 using Mp3Lib;
 using System.Drawing;
-using System.Diagnostics;
 
 namespace UI
 {
@@ -25,30 +24,189 @@ namespace UI
         }
 
         string playListId;
+        List<string> paths;
+        int errors;
+        int done;
+        bool stop = false;
 
         private async void startBtn_Click(object sender, EventArgs e)
         {
+            var task = GetVideosInPlaylistAsync(playListId);
+            if (startBtn.Text == "Stop")
+            {
+                stop = true;
+                SetControlPropertyValue(startBtn, "text", "Start");
+            }
             playListId = linkTextbox.Text.Replace("https://www.youtube.com/playlist?list=", "");
             try
             {
                 progressBar.Value = 0;
                 startBtn.Text = "Stop";
-                var task = GetVideosInPlaylistAsync(playListId);
                 var result = await task.ConfigureAwait(false);
                 CreateFiles(result, convertCheckbox.Checked, pathTextbox.Text, artistTextbox.Text, albumTextbox.Text, yearTextbox.Text, albumPicture.Image);
+                AddIDTags(paths, pathTextbox.Text, artistTextbox.Text);
+                MessageBox.Show("All Files, except for " + errors + ", were successfully downloaded", "Finished", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                SetControlPropertyValue(progressBar, "value", 0);
             }
             catch (AggregateException agg)
             {
-                startBtn.Text = "Start";
+                SetControlPropertyValue(startBtn, "text", "Start");
                 foreach (var f in agg.Flatten().InnerExceptions)
                     Console.WriteLine(f.Message);
                 MessageBox.Show("Oops Something went wrong!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception g)
             {
-                startBtn.Text = "Start";
+                SetControlPropertyValue(startBtn, "text", "Start");
                 Console.WriteLine(g.Message);
                 MessageBox.Show("Oops Something went wrong!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AddIDTags(List<string> paths, string pathToFile, string artist)
+        {
+            done = 0;
+            SetControlPropertyValue(progressBar, "value", 0);
+            SetControlPropertyValue(progressLabel, "text", progressBar.Value.ToString() + "/" + progressBar.Maximum + " Done");
+
+            foreach (string path in paths)
+            {
+                try
+                {
+                    Mp3File file = new Mp3File(path);
+                    file.TagHandler.Album = albumTextbox.Text;
+                    file.TagHandler.Artist = artistTextbox.Text;
+                    file.TagHandler.Year = yearTextbox.Text;
+                    file.TagHandler.Picture = albumPicture.Image;
+                    try
+                    {
+                        file.Update();
+                    }
+                    catch
+                    {
+                        file.Update();
+                    }
+                    #region
+                    string newPath = path;
+
+                    if (newPath.Contains("OFFICIAL VIDEO"))
+                    {
+                        newPath = newPath.Replace("OFFICIAL VIDEO", "");
+                    }
+
+                    if (newPath.Contains("(Official Video)"))
+                    {
+                        newPath = newPath.Replace("(Official Video)", "");
+                    }
+
+                    if (newPath.Contains("[Official Video]"))
+                    {
+                        newPath = newPath.Replace("[Official Video]", "");
+                    }
+
+                    if (newPath.Contains("(Official Music Video)"))
+                    {
+                        newPath = newPath.Replace("(Official Music Video)", "");
+                    }
+
+                    if (newPath.Contains("Official Video"))
+                    {
+                        newPath = newPath.Replace("Official Video", "");
+                    }
+
+                    if (newPath.Contains("Official Music Video"))
+                    {
+                        newPath = newPath.Replace("Official Music Video", "");
+                    }
+
+                    if (newPath.Contains("Music Video"))
+                    {
+                        newPath = newPath.Replace("Music Video", "");
+                    }
+
+
+
+                    if (newPath.Contains("(Lyrics)"))
+                    {
+                        newPath = newPath.Replace("(Lyrics)", "");
+                    }
+
+                    if (newPath.Contains("(lyrics"))
+                    {
+                        newPath = newPath.Replace("(lyrics)", "");
+                    }
+
+                    if (newPath.Contains("Lyrics"))
+                    {
+                        newPath = newPath.Replace("Lyrics", "");
+                    }
+
+                    if (newPath.Contains("Lyric Video"))
+                    {
+                        newPath = newPath.Replace("Lyric Video", "");
+                    }
+
+                    if (newPath.Contains("(Lyric Video)"))
+                    {
+                        newPath = newPath.Replace("(Lyric Video)", "");
+                    }
+
+
+
+                    if (newPath.Contains("[Audio]"))
+                    {
+                        newPath = newPath.Replace("[Audio]", "");
+                    }
+
+                    if (newPath.Contains("(AUDIO)"))
+                    {
+                        newPath = newPath.Replace("(AUIDO)", "");
+                    }
+
+                    if (newPath.Contains("(official audio)"))
+                    {
+                        newPath = newPath.Replace("(official audio)", "");
+                    }
+
+                    if (newPath.Contains("(Official Audio)"))
+                    {
+                        newPath = newPath.Replace("(Official Audio)", "");
+                    }
+
+                    if (newPath.Contains("[Official Audio]"))
+                    {
+                        newPath = newPath.Replace("[Official Audio]", "");
+                    }
+
+
+
+                    if (newPath.Contains("[HQ]"))
+                    {
+                        newPath = newPath.Replace("[HQ]", "");
+                    }
+
+                    File.Move(path, newPath);
+                    #endregion
+                    pathToFile = pathToFile.Replace("\\", "/");
+                    string fileToDelete = path.Replace(".mp3", ".bak");
+                    if (File.Exists(fileToDelete))
+                        File.Delete(fileToDelete);
+
+                    done++;
+                    SetControlPropertyValue(progressBar, "value", done);
+                    SetControlPropertyValue(progressLabel, "text", progressBar.Value.ToString() + "/" + progressBar.Maximum + " Done");
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    errors++;
+                    done++;
+                    SetControlPropertyValue(progressBar, "value", done);
+                    SetControlPropertyValue(progressLabel, "text", progressBar.Value.ToString() + "/" + progressBar.Maximum + " Done");
+                }
+                
+                
+                
             }
         }
 
@@ -88,13 +246,15 @@ namespace UI
         {
             if (result.items.Count > 0)
             {
-                int errors = 0;
-                int done = 0;
-
                 SetControlPropertyValue(progressBar, "maximum", result.items.Count);
                 SetControlPropertyValue(progressLabel, "text", progressBar.Value.ToString() + "/" + progressBar.Maximum + " Done");
+                paths = new List<string>();
                 foreach (var item in result.items)
                 {
+                    if (stop)
+                    {
+                        break;
+                    }
                     try
                     {
                         var youtube = YouTube.Default;
@@ -121,13 +281,7 @@ namespace UI
                             pathToFile = pathToFile.Replace("\\", "/");
                             File.Move(outputFile.Filename, pathToFile);
                             File.Delete(path);
-                            Mp3File file = new Mp3File(pathToFile);
-                            file.TagHandler.Album = "test";
-                            file.TagHandler.Artist = "test";
-                            file.TagHandler.Year = "2019";
-                            file.TagHandler.Picture = picture;
-                            file.Update();
-                            
+                            paths.Add(pathToFile);
                         }
                         
 
@@ -147,7 +301,6 @@ namespace UI
                         if (done == result.items.Count)
                         {
                             SetControlPropertyValue(startBtn, "text", "Start");
-                            MessageBox.Show("All Videos, except for " + errors + ", were downloaded succesfully!", "Done!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                 }
@@ -167,7 +320,7 @@ namespace UI
 
             var baseUrl = "https://www.googleapis.com/youtube/v3/playlistItems?";
             var fullUrl = makeUrlWithQuery(baseUrl, parameters);
-
+            
             var result = await new HttpClient().GetStringAsync(fullUrl);
 
             if (result != null)
