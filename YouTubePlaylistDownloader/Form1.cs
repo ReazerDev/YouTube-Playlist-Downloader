@@ -24,70 +24,78 @@ namespace UI
         }
 
         string playListId;
-        List<string> paths;
         int errors;
         int done;
         bool stop = false;
 
         private async void startBtn_Click(object sender, EventArgs e)
         {
-            var task = GetVideosInPlaylistAsync(playListId);
-            if (startBtn.Text == "Stop")
-            {
-                stop = true;
-                SetControlPropertyValue(startBtn, "text", "Start");
-            }
-            playListId = linkTextbox.Text.Replace("https://www.youtube.com/playlist?list=", "");
             try
             {
-                progressBar.Value = 0;
-                startBtn.Text = "Stop";
-                var result = await task.ConfigureAwait(false);
-                CreateFiles(result, convertCheckbox.Checked, pathTextbox.Text, artistTextbox.Text, albumTextbox.Text, yearTextbox.Text, albumPicture.Image);
-                AddIDTags(paths, pathTextbox.Text, artistTextbox.Text);
-                MessageBox.Show("All Files, except for " + errors + ", were successfully downloaded", "Finished", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                SetControlPropertyValue(progressBar, "value", 0);
+
+                playListId = linkTextbox.Text.Replace("https://www.youtube.com/playlist?list=", "");
+
+                var theresMore = false;
+                string nextPageToken = null;
+                var pageNumber = 0;
+                const int MaxResults = 50;
+
+                do
+                {
+                    var task = GetVideosInPlaylistAsync(playListId, nextPageToken);
+                    var result = await task.ConfigureAwait(false);
+
+                    if (result.pageInfo.totalResults == 0)
+                    {
+                        Console.WriteLine("No videos found in playlist.");
+                        return;
+                    }
+
+                    pageNumber++;
+                    nextPageToken = result.nextPageToken;
+                    theresMore = (nextPageToken != null);
+                    var from = (pageNumber - 1) * MaxResults + 1;
+                    var to = from + result.items.Count - 1;
+
+                    SetControlPropertyValue(progressBar, "maximum", (int)result.pageInfo.totalResults);
+                    SetControlPropertyValue(progressBar, "value", 0);
+                    SetControlPropertyValue(progressLabel, "text", progressBar.Value.ToString() + "/" + progressBar.Maximum + " Done");
+                    SetControlPropertyValue(startBtn, "text", "Stop");
+
+                    CreateFiles(result, from, to, convertCheckbox.Checked, pathTextbox.Text);
+                } while (theresMore);
+                MessageBox.Show($"All Videos, except for {errors}, have been successfully downloaded!");
             }
             catch (AggregateException agg)
             {
-                SetControlPropertyValue(startBtn, "text", "Start");
-                foreach (var f in agg.Flatten().InnerExceptions)
-                    Console.WriteLine(f.Message);
-                MessageBox.Show("Oops Something went wrong!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                foreach (var j in agg.Flatten().InnerExceptions)
+                    Console.WriteLine(j.Message);
             }
-            catch (Exception g)
+            catch (Exception ex)
             {
-                SetControlPropertyValue(startBtn, "text", "Start");
-                Console.WriteLine(g.Message);
-                MessageBox.Show("Oops Something went wrong!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(ex.Message);
             }
         }
 
-        private void AddIDTags(List<string> paths, string pathToFile, string artist)
+        private void UpdateID3Tags(string pathToFile)
         {
-            done = 0;
-            SetControlPropertyValue(progressBar, "value", 0);
-            SetControlPropertyValue(progressLabel, "text", progressBar.Value.ToString() + "/" + progressBar.Maximum + " Done");
-
-            foreach (string path in paths)
+            try
             {
+                Mp3File file = new Mp3File(pathToFile);
+                file.TagHandler.Album = albumTextbox.Text;
+                file.TagHandler.Artist = artistTextbox.Text;
+                file.TagHandler.Year = yearTextbox.Text;
+                file.TagHandler.Picture = albumPicture.Image;
                 try
                 {
-                    Mp3File file = new Mp3File(path);
-                    file.TagHandler.Album = albumTextbox.Text;
-                    file.TagHandler.Artist = artistTextbox.Text;
-                    file.TagHandler.Year = yearTextbox.Text;
-                    file.TagHandler.Picture = albumPicture.Image;
-                    try
-                    {
-                        file.Update();
-                    }
-                    catch
-                    {
-                        file.Update();
-                    }
-                    #region
-                    string newPath = path;
+                    file.Update();
+                }
+                catch
+                {
+                    file.Update();
+                }
+                #region
+                    string newPath = pathToFile;
 
                     if (newPath.Contains("OFFICIAL VIDEO"))
                     {
@@ -185,28 +193,18 @@ namespace UI
                         newPath = newPath.Replace("[HQ]", "");
                     }
 
-                    File.Move(path, newPath);
+                    File.Move(pathToFile, newPath);
                     #endregion
-                    pathToFile = pathToFile.Replace("\\", "/");
-                    string fileToDelete = path.Replace(".mp3", ".bak");
-                    if (File.Exists(fileToDelete))
-                        File.Delete(fileToDelete);
-
-                    done++;
-                    SetControlPropertyValue(progressBar, "value", done);
-                    SetControlPropertyValue(progressLabel, "text", progressBar.Value.ToString() + "/" + progressBar.Maximum + " Done");
-                }
-                catch(Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                    errors++;
-                    done++;
-                    SetControlPropertyValue(progressBar, "value", done);
-                    SetControlPropertyValue(progressLabel, "text", progressBar.Value.ToString() + "/" + progressBar.Maximum + " Done");
-                }
-                
-                
-                
+                pathToFile = pathToFile.Replace("\\", "/");
+                string fileToDelete = pathToFile.Replace(".mp3", ".bak");
+                if (File.Exists(fileToDelete))
+                    File.Delete(fileToDelete);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                errors++;
+                done++;
             }
         }
 
@@ -242,55 +240,53 @@ namespace UI
             }
         }
 
-        private void CreateFiles(dynamic result, bool convert, string source, string artist, string album, string year, Image picture)
+        private void CreateFiles(dynamic result, int from, int to, bool convert, string pathToFolder)
         {
             if (result.items.Count > 0)
             {
-                SetControlPropertyValue(progressBar, "maximum", result.items.Count);
+                var exceptionMessage = string.Format($"The value of the argument '{nameof(from)}' must be less than or the same as '{nameof(to)}'.");
+
+                if (from > to) throw new ArgumentOutOfRangeException(exceptionMessage);
+
+                var i = from;
                 SetControlPropertyValue(progressLabel, "text", progressBar.Value.ToString() + "/" + progressBar.Maximum + " Done");
-                paths = new List<string>();
+
                 foreach (var item in result.items)
                 {
-                    if (stop)
-                    {
-                        break;
-                    }
                     try
                     {
                         var youtube = YouTube.Default;
                         string id = item.snippet.resourceId.videoId;
                         Console.WriteLine(item.snippet.title);
                         var vid = youtube.GetVideo("https://www.youtube.com/watch?v=" + id);
-                        string path = Path.Combine(source, vid.FullName);
-                        File.WriteAllBytes(path, vid.GetBytes());
+                        string pathToMP4File = Path.Combine(pathToFolder, vid.FullName);
+                        byte[] bytes = vid.GetBytes();
+                        File.WriteAllBytes(pathToMP4File, vid.GetBytes());
 
-                        var inputFile = new MediaFile { Filename = path };
-                        var outputFile = new MediaFile { Filename = $"{path.Replace(".mp4", "")}.mp3" };
                         if (convert)
                         {
+                            MediaFile inputFile = new MediaFile { Filename = pathToMP4File };
+                            MediaFile outputFile = new MediaFile { Filename = $"{ pathToMP4File.Replace(".mp4", ".mp3") }" };
 
-                            using (var engine = new Engine())
+                            using (Engine engine = new Engine())
                             {
                                 engine.GetMetadata(inputFile);
-
                                 engine.Convert(inputFile, outputFile);
                             }
-                            string pathToFile = outputFile.Filename;
-                            pathToFile = pathToFile.Replace("_", "");
-                            pathToFile = pathToFile.Replace(" - YouTube", "");
-                            pathToFile = pathToFile.Replace("\\", "/");
-                            File.Move(outputFile.Filename, pathToFile);
-                            File.Delete(path);
-                            paths.Add(pathToFile);
+
+                            string pathToMP3File = outputFile.Filename;
+
+                            pathToMP3File = pathToMP3File.Replace("_", "");
+                            pathToMP3File = pathToMP3File.Replace(" - YouTube", "");
+                            pathToMP3File = pathToMP3File.Replace("\\", "/");
+
+                            File.Move(outputFile.Filename, pathToMP3File);
+                            File.Delete(pathToMP4File);
+
+                            UpdateID3Tags(pathToMP3File);
                         }
                         
-
-                        done += 1;
-                        SetControlPropertyValue(progressBar, "value", done);
-                        SetControlPropertyValue(progressLabel, "text", progressBar.Value.ToString() + "/" + progressBar.Maximum.ToString() + " Done"); 
                     }
-
-
                     catch
                     {
                         errors++;
@@ -298,29 +294,33 @@ namespace UI
                     }
                     finally
                     {
-                        if (done == result.items.Count)
-                        {
-                            SetControlPropertyValue(startBtn, "text", "Start");
-                        }
+                        done++;
+                        SetControlPropertyValue(progressBar, "value", done);
+                        SetControlPropertyValue(progressLabel, "text", progressBar.Value.ToString() + "/" + progressBar.Maximum + " Done");
                     }
+
+
                 }
             }
         }
 
-        private static async Task<dynamic> GetVideosInPlaylistAsync(string playListId)
+        private static async Task<dynamic> GetVideosInPlaylistAsync(string playlistId, string nextPageToken)
         {
             var parameters = new Dictionary<string, string>
             {
                 ["key"] = ConfigurationManager.AppSettings["APIKey"],
-                ["playlistId"] = playListId,
+                ["playlistId"] = playlistId,
                 ["part"] = "snippet",
-                ["fields"] = "pageInfo, items/snippet(title, resourceId/videoId)",
+                ["fields"] = "nextPageToken, pageInfo, items/snippet(title, resourceId/videoId)",
                 ["maxResults"] = "50"
             };
 
+            if (!string.IsNullOrEmpty(nextPageToken))
+                parameters.Add("pageToken", nextPageToken);
+
             var baseUrl = "https://www.googleapis.com/youtube/v3/playlistItems?";
-            var fullUrl = makeUrlWithQuery(baseUrl, parameters);
-            
+            var fullUrl = MakeUrlWithQuery(baseUrl, parameters);
+
             var result = await new HttpClient().GetStringAsync(fullUrl);
 
             if (result != null)
@@ -331,9 +331,17 @@ namespace UI
             return default(dynamic);
         }
 
-        private static string makeUrlWithQuery(string baseUrl, IEnumerable<KeyValuePair<string, string>> parameters)
+        private static string MakeUrlWithQuery(string baseUrl,
+            IEnumerable<KeyValuePair<string, string>> parameters)
         {
-            return parameters.Aggregate(baseUrl, (accumalated, kvp) => string.Format($"{accumalated}{kvp.Key}={kvp.Value}&"));
+            if (string.IsNullOrEmpty(baseUrl))
+                throw new ArgumentNullException(nameof(baseUrl));
+
+            if (parameters == null || parameters.Count() == 0)
+                return baseUrl;
+
+            return parameters.Aggregate(baseUrl,
+                (accumulated, kvp) => string.Format($"{accumulated}{kvp.Key}={kvp.Value}&"));
         }
 
         private void browseImageBtn_Click(object sender, EventArgs e)
