@@ -77,6 +77,16 @@ namespace UI
             }
         }
 
+        private void UpdateFilename(string pathToFile)
+        {
+            string[] lines = File.ReadAllLines(Application.StartupPath + "/strings.txt");
+            foreach (string line in lines)
+            {
+                if (pathToFile.Contains(line))
+                    pathToFile = pathToFile.Replace(line, "");
+            }
+        }
+
         private void UpdateID3Tags(string pathToFile)
         {
             try
@@ -94,107 +104,7 @@ namespace UI
                 {
                     file.Update();
                 }
-                #region
-                    string newPath = pathToFile;
-
-                    if (newPath.Contains("OFFICIAL VIDEO"))
-                    {
-                        newPath = newPath.Replace("OFFICIAL VIDEO", "");
-                    }
-
-                    if (newPath.Contains("(Official Video)"))
-                    {
-                        newPath = newPath.Replace("(Official Video)", "");
-                    }
-
-                    if (newPath.Contains("[Official Video]"))
-                    {
-                        newPath = newPath.Replace("[Official Video]", "");
-                    }
-
-                    if (newPath.Contains("(Official Music Video)"))
-                    {
-                        newPath = newPath.Replace("(Official Music Video)", "");
-                    }
-
-                    if (newPath.Contains("Official Video"))
-                    {
-                        newPath = newPath.Replace("Official Video", "");
-                    }
-
-                    if (newPath.Contains("Official Music Video"))
-                    {
-                        newPath = newPath.Replace("Official Music Video", "");
-                    }
-
-                    if (newPath.Contains("Music Video"))
-                    {
-                        newPath = newPath.Replace("Music Video", "");
-                    }
-
-
-
-                    if (newPath.Contains("(Lyrics)"))
-                    {
-                        newPath = newPath.Replace("(Lyrics)", "");
-                    }
-
-                    if (newPath.Contains("(lyrics"))
-                    {
-                        newPath = newPath.Replace("(lyrics)", "");
-                    }
-
-                    if (newPath.Contains("Lyrics"))
-                    {
-                        newPath = newPath.Replace("Lyrics", "");
-                    }
-
-                    if (newPath.Contains("Lyric Video"))
-                    {
-                        newPath = newPath.Replace("Lyric Video", "");
-                    }
-
-                    if (newPath.Contains("(Lyric Video)"))
-                    {
-                        newPath = newPath.Replace("(Lyric Video)", "");
-                    }
-
-
-
-                    if (newPath.Contains("[Audio]"))
-                    {
-                        newPath = newPath.Replace("[Audio]", "");
-                    }
-
-                    if (newPath.Contains("(AUDIO)"))
-                    {
-                        newPath = newPath.Replace("(AUIDO)", "");
-                    }
-
-                    if (newPath.Contains("(official audio)"))
-                    {
-                        newPath = newPath.Replace("(official audio)", "");
-                    }
-
-                    if (newPath.Contains("(Official Audio)"))
-                    {
-                        newPath = newPath.Replace("(Official Audio)", "");
-                    }
-
-                    if (newPath.Contains("[Official Audio]"))
-                    {
-                        newPath = newPath.Replace("[Official Audio]", "");
-                    }
-
-
-
-                    if (newPath.Contains("[HQ]"))
-                    {
-                        newPath = newPath.Replace("[HQ]", "");
-                    }
-
-                    File.Move(pathToFile, newPath);
-                    #endregion
+                UpdateFilename(pathToFile);
                 pathToFile = pathToFile.Replace("\\", "/");
                 string fileToDelete = pathToFile.Replace(".mp3", ".bak");
                 if (File.Exists(fileToDelete))
