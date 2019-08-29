@@ -30,6 +30,11 @@ namespace UI
 
         private async void startBtn_Click(object sender, EventArgs e)
         {
+            if(startBtn.Text == "Stop")
+            {
+                stop = true;
+                return;
+            }
             try
             {
 
@@ -75,16 +80,25 @@ namespace UI
             {
                 Console.WriteLine(ex.Message);
             }
+            finally
+            {
+                SetControlPropertyValue(progressBar, "maximum", 0);
+                SetControlPropertyValue(progressBar, "value", 0);
+                SetControlPropertyValue(progressLabel, "text", progressBar.Value.ToString() + "/" + progressBar.Maximum + " Done");
+                SetControlPropertyValue(startBtn, "text", "Start");
+            }
         }
 
         private void UpdateFilename(string pathToFile)
         {
             string[] lines = File.ReadAllLines(Application.StartupPath + "/strings.txt");
+            string newPathToFile = pathToFile;
             foreach (string line in lines)
             {
-                if (pathToFile.Contains(line))
-                    pathToFile = pathToFile.Replace(line, "");
+                if (newPathToFile.Contains(line))
+                    newPathToFile = newPathToFile.Replace(line, "");
             }
+            File.Move(pathToFile, newPathToFile);
         }
 
         private void UpdateID3Tags(string pathToFile)
@@ -104,7 +118,6 @@ namespace UI
                 {
                     file.Update();
                 }
-                UpdateFilename(pathToFile);
                 pathToFile = pathToFile.Replace("\\", "/");
                 string fileToDelete = pathToFile.Replace(".mp3", ".bak");
                 if (File.Exists(fileToDelete))
@@ -163,6 +176,9 @@ namespace UI
 
                 foreach (var item in result.items)
                 {
+                    if (stop)
+                        return;
+
                     try
                     {
                         var youtube = YouTube.Default;
@@ -194,6 +210,7 @@ namespace UI
                             File.Delete(pathToMP4File);
 
                             UpdateID3Tags(pathToMP3File);
+                            UpdateFilename(pathToMP3File);
                         }
                         
                     }
